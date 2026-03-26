@@ -1,0 +1,301 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Akka Management API",
+    "description": "REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Akka",
+      "url": "https://doc.akka.io/docs/akka-management/current/"
+    },
+    "license": {
+      "name": "Business Source License 1.1",
+      "url": "https://akka.io/license/"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8558",
+      "description": "Default Akka Management HTTP endpoint"
+    }
+  ],
+  "paths": {
+    "/alive": {
+      "get": {
+        "operationId": "getAlive",
+        "summary": "Liveness check",
+        "description": "Returns 200 if the actor system is running. Used for Kubernetes liveness probes.",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "Actor system is alive.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Up"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Actor system is not available."
+          }
+        }
+      }
+    },
+    "/ready": {
+      "get": {
+        "operationId": "getReady",
+        "summary": "Readiness check",
+        "description": "Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes.",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "Service is ready.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Up"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Service is not ready."
+          }
+        }
+      }
+    },
+    "/cluster/members": {
+      "get": {
+        "operationId": "getClusterMembers",
+        "summary": "List cluster members",
+        "description": "Returns the current cluster membership information including all members and their status.",
+        "tags": ["Cluster"],
+        "responses": {
+          "200": {
+            "description": "Cluster membership information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClusterMembers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cluster/members/{address}": {
+      "get": {
+        "operationId": "getClusterMember",
+        "summary": "Get cluster member details",
+        "description": "Returns details for a specific cluster member.",
+        "tags": ["Cluster"],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "description": "Akka address of the member (e.g., akka://system@host:port).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClusterMember"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Member not found."
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateClusterMember",
+        "summary": "Update member status",
+        "description": "Change the status of a cluster member (e.g., down a member).",
+        "tags": ["Cluster"],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operation": {
+                    "type": "string",
+                    "description": "Operation to perform on the member.",
+                    "enum": ["Down", "Leave"]
+                  }
+                },
+                "required": ["operation"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Operation performed successfully."
+          },
+          "404": {
+            "description": "Member not found."
+          }
+        }
+      },
+      "delete": {
+        "operationId": "downClusterMember",
+        "summary": "Down a cluster member",
+        "description": "Mark a cluster member as down.",
+        "tags": ["Cluster"],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member marked as down."
+          },
+          "404": {
+            "description": "Member not found."
+          }
+        }
+      }
+    },
+    "/bootstrap/seed-nodes": {
+      "get": {
+        "operationId": "getSeedNodes",
+        "summary": "Get bootstrap seed nodes",
+        "description": "Returns the seed nodes discovered during cluster bootstrap.",
+        "tags": ["Bootstrap"],
+        "responses": {
+          "200": {
+            "description": "Seed nodes list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "seedNodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClusterMembers": {
+        "type": "object",
+        "properties": {
+          "selfNode": {
+            "type": "string",
+            "description": "Address of the current node."
+          },
+          "leader": {
+            "type": "string",
+            "description": "Address of the cluster leader."
+          },
+          "oldest": {
+            "type": "string",
+            "description": "Address of the oldest node."
+          },
+          "unreachable": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClusterMember"
+            }
+          }
+        }
+      },
+      "ClusterMember": {
+        "type": "object",
+        "properties": {
+          "node": {
+            "type": "string",
+            "description": "Akka address of the member."
+          },
+          "nodeUid": {
+            "type": "string",
+            "description": "Unique identifier for the member."
+          },
+          "status": {
+            "type": "string",
+            "description": "Current member status.",
+            "enum": ["Joining", "WeaklyUp", "Up", "Leaving", "Exiting", "Down", "Removed"]
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Health check endpoints for liveness and readiness probes."
+    },
+    {
+      "name": "Cluster",
+      "description": "Cluster membership management endpoints."
+    },
+    {
+      "name": "Bootstrap",
+      "description": "Cluster bootstrap discovery endpoints."
+    }
+  ]
+}

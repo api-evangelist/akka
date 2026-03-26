@@ -1,0 +1,329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/akka/json-schema/akka-config.json",
+  "title": "Akka Configuration",
+  "description": "JSON Schema representing the Akka framework HOCON configuration structure covering actor system, dispatchers, remoting, cluster, persistence, and HTTP settings.",
+  "type": "object",
+  "properties": {
+    "akka": {
+      "type": "object",
+      "properties": {
+        "loglevel": {
+          "type": "string",
+          "description": "Log level for the actor system.",
+          "enum": ["OFF", "ERROR", "WARNING", "INFO", "DEBUG"],
+          "default": "INFO"
+        },
+        "stdout-loglevel": {
+          "type": "string",
+          "description": "Log level during startup before logging is configured.",
+          "default": "WARNING"
+        },
+        "actor": {
+          "type": "object",
+          "description": "Actor system configuration.",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "description": "Actor provider (local, cluster, or remote).",
+              "enum": ["local", "remote", "cluster"],
+              "default": "local"
+            },
+            "default-dispatcher": {
+              "type": "object",
+              "description": "Default dispatcher configuration.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Dispatcher type.",
+                  "default": "Dispatcher"
+                },
+                "executor": {
+                  "type": "string",
+                  "description": "Executor to use (fork-join-executor or thread-pool-executor).",
+                  "default": "fork-join-executor"
+                },
+                "fork-join-executor": {
+                  "type": "object",
+                  "properties": {
+                    "parallelism-min": {
+                      "type": "integer",
+                      "default": 8
+                    },
+                    "parallelism-factor": {
+                      "type": "number",
+                      "default": 1.0
+                    },
+                    "parallelism-max": {
+                      "type": "integer",
+                      "default": 64
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "thread-pool-executor": {
+                  "type": "object",
+                  "properties": {
+                    "core-pool-size-min": {
+                      "type": "integer",
+                      "default": 8
+                    },
+                    "core-pool-size-factor": {
+                      "type": "number",
+                      "default": 3.0
+                    },
+                    "core-pool-size-max": {
+                      "type": "integer",
+                      "default": 64
+                    }
+                  },
+                  "additionalProperties": true
+                },
+                "throughput": {
+                  "type": "integer",
+                  "description": "Messages to process before rescheduling.",
+                  "default": 5
+                }
+              },
+              "additionalProperties": true
+            },
+            "serializers": {
+              "type": "object",
+              "description": "Named serializer bindings.",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "serialization-bindings": {
+              "type": "object",
+              "description": "Class to serializer mappings.",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "allow-java-serialization": {
+              "type": "boolean",
+              "description": "Allow Java serialization (discouraged in production).",
+              "default": false
+            }
+          },
+          "additionalProperties": true
+        },
+        "remote": {
+          "type": "object",
+          "description": "Akka Remoting configuration.",
+          "properties": {
+            "artery": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "transport": {
+                  "type": "string",
+                  "description": "Transport protocol.",
+                  "enum": ["aeron-udp", "tcp", "tls-tcp"],
+                  "default": "aeron-udp"
+                },
+                "canonical": {
+                  "type": "object",
+                  "properties": {
+                    "hostname": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer",
+                      "default": 25520
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "cluster": {
+          "type": "object",
+          "description": "Akka Cluster configuration.",
+          "properties": {
+            "seed-nodes": {
+              "type": "array",
+              "description": "List of seed node addresses.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "downing-provider-class": {
+              "type": "string",
+              "description": "Split brain resolver provider class."
+            },
+            "min-nr-of-members": {
+              "type": "integer",
+              "description": "Minimum number of members before cluster is up.",
+              "default": 1
+            },
+            "roles": {
+              "type": "array",
+              "description": "Roles for this cluster node.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "sharding": {
+              "type": "object",
+              "description": "Cluster Sharding configuration.",
+              "properties": {
+                "number-of-shards": {
+                  "type": "integer",
+                  "default": 100
+                },
+                "state-store-mode": {
+                  "type": "string",
+                  "enum": ["ddata", "persistence"],
+                  "default": "ddata"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "persistence": {
+          "type": "object",
+          "description": "Akka Persistence configuration.",
+          "properties": {
+            "journal": {
+              "type": "object",
+              "properties": {
+                "plugin": {
+                  "type": "string",
+                  "description": "Journal plugin class."
+                }
+              },
+              "additionalProperties": true
+            },
+            "snapshot-store": {
+              "type": "object",
+              "properties": {
+                "plugin": {
+                  "type": "string",
+                  "description": "Snapshot store plugin class."
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "http": {
+          "type": "object",
+          "description": "Akka HTTP configuration.",
+          "properties": {
+            "server": {
+              "type": "object",
+              "properties": {
+                "idle-timeout": {
+                  "type": "string",
+                  "default": "60s"
+                },
+                "request-timeout": {
+                  "type": "string",
+                  "default": "20s"
+                },
+                "max-connections": {
+                  "type": "integer",
+                  "default": 1024
+                },
+                "preview": {
+                  "type": "object",
+                  "properties": {
+                    "enable-http2": {
+                      "type": "boolean",
+                      "default": false
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "idle-timeout": {
+                  "type": "string",
+                  "default": "60s"
+                },
+                "connecting-timeout": {
+                  "type": "string",
+                  "default": "10s"
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        },
+        "management": {
+          "type": "object",
+          "description": "Akka Management HTTP endpoint configuration.",
+          "properties": {
+            "http": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "string",
+                  "default": "0.0.0.0"
+                },
+                "port": {
+                  "type": "integer",
+                  "default": 8558
+                },
+                "base-path": {
+                  "type": "string",
+                  "description": "Base path prefix for management routes."
+                }
+              },
+              "additionalProperties": true
+            },
+            "cluster": {
+              "type": "object",
+              "properties": {
+                "bootstrap": {
+                  "type": "object",
+                  "properties": {
+                    "contact-point-discovery": {
+                      "type": "object",
+                      "properties": {
+                        "discovery-method": {
+                          "type": "string",
+                          "description": "Service discovery method (e.g., kubernetes-api, akka-dns)."
+                        },
+                        "service-name": {
+                          "type": "string"
+                        },
+                        "required-contact-point-nr": {
+                          "type": "integer",
+                          "default": 2
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  },
+                  "additionalProperties": true
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

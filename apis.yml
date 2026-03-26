@@ -40,6 +40,12 @@ apis:
         url: https://doc.akka.io/
       - type: Getting Started
         url: https://doc.akka.io/docs/akka/current/typed/guide/introduction.html
+      - type: JSONSchema
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/json-schema/akka-config.json
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/openapi/akka-management.json
 common:
   - type: Website
     url: https://akka.io/
