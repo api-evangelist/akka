@@ -1,11 +1,19 @@
 aid: akka
 name: Akka
 description: >-
-  Akka is a toolkit for building highly concurrent, distributed, and resilient message-driven applications on the JVM.
+  Akka is a toolkit and runtime for building highly concurrent, distributed,
+  and resilient message-driven applications on the JVM using the actor model
+  for Java and Scala.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Microservices
+  - Java
+  - Scala
+  - Actor Model
+  - Distributed Systems
+  - Reactive
+  - Frameworks
 url: >-
   https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -15,14 +23,36 @@ apis:
   - aid: akka:akka
     name: Akka
     description: >-
-      Akka is a toolkit for building highly concurrent, distributed, and resilient message-driven applications on the JVM.
-    humanURL: https://github.com/api-evangelist/akka
+      Akka is a toolkit and runtime for building highly concurrent, distributed,
+      and resilient message-driven applications on the JVM using the actor model
+      for Java and Scala.
+    humanURL: https://akka.io/
     tags:
       - Microservices
-    properties: []
+      - Java
+      - Scala
+      - Actor Model
+      - Distributed Systems
+      - Reactive
+      - Frameworks
+    properties:
+      - type: Documentation
+        url: https://doc.akka.io/
+      - type: Getting Started
+        url: https://doc.akka.io/docs/akka/current/typed/guide/introduction.html
 common:
   - type: Website
-    url: https://github.com/api-evangelist/akka
+    url: https://akka.io/
+  - type: Documentation
+    url: https://doc.akka.io/
+  - type: Getting Started
+    url: https://doc.akka.io/docs/akka/current/typed/guide/introduction.html
+  - type: GitHub Organization
+    url: https://github.com/akka
+  - type: Blog
+    url: https://akka.io/blog/
+  - type: Pricing
+    url: https://akka.io/pricing/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
