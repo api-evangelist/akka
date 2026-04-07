@@ -7,13 +7,13 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Microservices
-  - Java
-  - Scala
   - Actor Model
   - Distributed Systems
-  - Reactive
   - Frameworks
+  - Java
+  - Microservices
+  - Reactive
+  - Scala
 url: >-
   https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -28,13 +28,13 @@ apis:
       for Java and Scala.
     humanURL: https://akka.io/
     tags:
-      - Microservices
-      - Java
-      - Scala
       - Actor Model
       - Distributed Systems
-      - Reactive
       - Frameworks
+      - Java
+      - Microservices
+      - Reactive
+      - Scala
     properties:
       - type: Documentation
         url: https://doc.akka.io/
