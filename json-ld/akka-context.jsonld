@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "akka": "https://akka.io/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "ClusterMembers": "akka:ClusterMembers",
+    "ClusterMember": "akka:ClusterMember",
+
+    "members": {
+      "@id": "akka:members",
+      "@container": "@set",
+      "@type": "@id"
+    },
+    "selfAddress": {
+      "@id": "akka:selfAddress",
+      "@type": "xsd:string"
+    },
+    "unreachable": {
+      "@id": "akka:unreachable",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "akka:address",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "akka:status",
+      "@type": "xsd:string"
+    },
+    "roles": {
+      "@id": "akka:roles",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "uid": {
+      "@id": "dcterms:identifier",
+      "@type": "xsd:integer"
+    }
+  }
+}

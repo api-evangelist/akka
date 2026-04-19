@@ -1,0 +1,98 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Akka"
+  description: "Vocabulary covering the operational and capability dimensions of the Akka actor framework and management API."
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: akka-management
+      version: "1.x"
+      baseUrl: http://{host}:{port}
+      status: active
+
+  resources:
+    - name: cluster-members
+      api: akka-management
+      actions: [list, join, leave, down]
+    - name: health-liveness
+      api: akka-management
+      actions: [check]
+    - name: health-readiness
+      api: akka-management
+      actions: [check]
+    - name: bootstrap-seed-nodes
+      api: akka-management
+      actions: [get]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+    - name: check
+      httpMethod: GET
+      pattern: read
+    - name: get
+      httpMethod: GET
+      pattern: read
+    - name: join
+      httpMethod: POST
+      pattern: write
+    - name: leave
+      httpMethod: DELETE
+      pattern: destructive
+    - name: down
+      httpMethod: DELETE
+      pattern: destructive
+
+  authentication:
+    schemes:
+      - type: None
+        description: Akka Management HTTP API is typically secured at the network level
+
+  schemas:
+    core:
+      - name: ClusterMembers
+        description: List of cluster members with their status and roles
+      - name: ClusterMember
+        description: Individual cluster member with address, status, and roles
+
+capability:
+  workflows:
+    - name: cluster-operations
+      file: capabilities/cluster-operations.yaml
+      description: Monitor and manage Akka cluster health and membership
+      personas: [Platform Engineer, SRE]
+      domains: [Cluster Management, Health Monitoring]
+
+  personas:
+    - id: platform-engineer
+      name: Platform Engineer
+      description: Manages Akka cluster deployments and configurations
+      workflows: [cluster-operations]
+    - id: sre
+      name: Site Reliability Engineer
+      description: Monitors cluster health and responds to incidents
+      workflows: [cluster-operations]
+
+  domains:
+    - name: Cluster Management
+      description: Akka cluster membership and node lifecycle management
+    - name: Health Monitoring
+      description: Liveness and readiness health check monitoring
+
+crossReference:
+  - resource: cluster-members
+    operations: [list, join, leave]
+    workflows: [cluster-operations]
+    personas: [Platform Engineer, SRE]
+  - resource: health-liveness
+    operations: [check]
+    workflows: [cluster-operations]
+    personas: [SRE]
+  - resource: health-readiness
+    operations: [check]
+    workflows: [cluster-operations]
+    personas: [SRE]

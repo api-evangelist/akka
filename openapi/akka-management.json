@@ -23,9 +23,11 @@
     "/alive": {
       "get": {
         "operationId": "getAlive",
-        "summary": "Liveness check",
+        "summary": "Akka Liveness Check",
         "description": "Returns 200 if the actor system is running. Used for Kubernetes liveness probes.",
-        "tags": ["Health"],
+        "tags": [
+          "Health"
+        ],
         "responses": {
           "200": {
             "description": "Actor system is alive.",
@@ -52,9 +54,11 @@
     "/ready": {
       "get": {
         "operationId": "getReady",
-        "summary": "Readiness check",
+        "summary": "Akka Readiness Check",
         "description": "Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes.",
-        "tags": ["Health"],
+        "tags": [
+          "Health"
+        ],
         "responses": {
           "200": {
             "description": "Service is ready.",
@@ -81,9 +85,11 @@
     "/cluster/members": {
       "get": {
         "operationId": "getClusterMembers",
-        "summary": "List cluster members",
+        "summary": "Akka List Cluster Members",
         "description": "Returns the current cluster membership information including all members and their status.",
-        "tags": ["Cluster"],
+        "tags": [
+          "Cluster"
+        ],
         "responses": {
           "200": {
             "description": "Cluster membership information.",
@@ -101,9 +107,11 @@
     "/cluster/members/{address}": {
       "get": {
         "operationId": "getClusterMember",
-        "summary": "Get cluster member details",
+        "summary": "Akka Get Cluster Member Details",
         "description": "Returns details for a specific cluster member.",
-        "tags": ["Cluster"],
+        "tags": [
+          "Cluster"
+        ],
         "parameters": [
           {
             "name": "address",
@@ -133,9 +141,11 @@
       },
       "put": {
         "operationId": "updateClusterMember",
-        "summary": "Update member status",
+        "summary": "Akka Update Member Status",
         "description": "Change the status of a cluster member (e.g., down a member).",
-        "tags": ["Cluster"],
+        "tags": [
+          "Cluster"
+        ],
         "parameters": [
           {
             "name": "address",
@@ -156,10 +166,15 @@
                   "operation": {
                     "type": "string",
                     "description": "Operation to perform on the member.",
-                    "enum": ["Down", "Leave"]
+                    "enum": [
+                      "Down",
+                      "Leave"
+                    ]
                   }
                 },
-                "required": ["operation"]
+                "required": [
+                  "operation"
+                ]
               }
             }
           }
@@ -175,9 +190,11 @@
       },
       "delete": {
         "operationId": "downClusterMember",
-        "summary": "Down a cluster member",
+        "summary": "Akka Down a Cluster Member",
         "description": "Mark a cluster member as down.",
-        "tags": ["Cluster"],
+        "tags": [
+          "Cluster"
+        ],
         "parameters": [
           {
             "name": "address",
@@ -201,9 +218,11 @@
     "/bootstrap/seed-nodes": {
       "get": {
         "operationId": "getSeedNodes",
-        "summary": "Get bootstrap seed nodes",
+        "summary": "Akka Get Bootstrap Seed Nodes",
         "description": "Returns the seed nodes discovered during cluster bootstrap.",
-        "tags": ["Bootstrap"],
+        "tags": [
+          "Bootstrap"
+        ],
         "responses": {
           "200": {
             "description": "Seed nodes list.",
@@ -272,7 +291,15 @@
           "status": {
             "type": "string",
             "description": "Current member status.",
-            "enum": ["Joining", "WeaklyUp", "Up", "Leaving", "Exiting", "Down", "Removed"]
+            "enum": [
+              "Joining",
+              "WeaklyUp",
+              "Up",
+              "Leaving",
+              "Exiting",
+              "Down",
+              "Removed"
+            ]
           },
           "roles": {
             "type": "array",

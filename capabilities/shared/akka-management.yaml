@@ -1,0 +1,152 @@
+naftiko: "1.0.0-alpha1"
+info:
+  label: "Akka Management"
+  description: "Akka Management HTTP API for cluster management, health checks, and bootstrap."
+  tags:
+    - Akka
+    - Cluster Management
+    - Health Checks
+    - Distributed Systems
+  created: "2026-04-19"
+  modified: "2026-04-19"
+binds:
+  - namespace: env
+    keys:
+      AKKA_MANAGEMENT_HOST: AKKA_MANAGEMENT_HOST
+      AKKA_MANAGEMENT_PORT: AKKA_MANAGEMENT_PORT
+capability:
+  consumes:
+    - type: http
+      namespace: akka-management
+      baseUri: http://{host}:{port}
+      description: "Akka Management HTTP API"
+      resources:
+        - name: health
+          path: /alive
+          description: "Liveness health check"
+          operations:
+            - name: check-alive
+              method: GET
+              description: "Check if the node is alive"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: readiness
+          path: /ready
+          description: "Readiness health check"
+          operations:
+            - name: check-ready
+              method: GET
+              description: "Check if the node is ready to serve traffic"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+        - name: cluster-members
+          path: /cluster/members
+          description: "Cluster membership management"
+          operations:
+            - name: list-cluster-members
+              method: GET
+              description: "List all cluster members"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+            - name: join-cluster
+              method: POST
+              description: "Join a cluster node"
+              outputRawFormat: json
+              outputParameters:
+                - name: result
+                  type: object
+                  value: "$."
+              body:
+                type: json
+                data:
+                  address: "{{tools.address}}"
+  exposes:
+    - type: rest
+      port: 8100
+      namespace: akka-management-api
+      resources:
+        - path: /v1/health/alive
+          name: liveness
+          description: "Liveness probe"
+          operations:
+            - method: GET
+              name: check-alive
+              description: "Check node liveness"
+              call: "akka-management.check-alive"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/health/ready
+          name: readiness
+          description: "Readiness probe"
+          operations:
+            - method: GET
+              name: check-ready
+              description: "Check node readiness"
+              call: "akka-management.check-ready"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/cluster/members
+          name: cluster-members
+          description: "Cluster members"
+          operations:
+            - method: GET
+              name: list-cluster-members
+              description: "List cluster members"
+              call: "akka-management.list-cluster-members"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+    - type: mcp
+      port: 9100
+      namespace: akka-management-mcp
+      transport: http
+      tools:
+        - name: check-node-alive
+          description: "Check if an Akka node is alive (liveness probe)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "akka-management.check-alive"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: check-node-ready
+          description: "Check if an Akka node is ready to serve traffic (readiness probe)"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "akka-management.check-ready"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-cluster-members
+          description: "List all members of the Akka cluster"
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "akka-management.list-cluster-members"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: join-cluster-node
+          description: "Join a new node to the Akka cluster"
+          hints:
+            readOnly: false
+            destructive: false
+          call: "akka-management.join-cluster"
+          with:
+            address: "tools.address"
+          outputParameters:
+            - type: object
+              mapping: "$."

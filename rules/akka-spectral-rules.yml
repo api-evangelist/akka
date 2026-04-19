@@ -1,0 +1,103 @@
+# Akka Management API Spectral Ruleset
+
+rules:
+  info-title-akka-prefix:
+    message: "API title should start with 'Akka'"
+    severity: warn
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Akka"
+
+  info-description-required:
+    message: "API info must have a description"
+    severity: error
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    message: "API info must have a version"
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  openapi-version-3:
+    message: "Must use OpenAPI 3.x"
+    severity: error
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\."
+
+  servers-defined:
+    message: "Servers must be defined"
+    severity: warn
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  operation-summary-required:
+    message: "Every operation must have a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-akka-prefix:
+    message: "Operation summaries should start with 'Akka'"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Akka"
+
+  operation-id-required:
+    message: "Every operation must have an operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-tags-required:
+    message: "Every operation must have at least one tag"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  response-description-required:
+    message: "All responses must have a description"
+    severity: error
+    given: "$.paths[*][*].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  get-no-request-body:
+    message: "GET operations must not have a request body"
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  paths-kebab-case:
+    message: "Path segments should use kebab-case"
+    severity: info
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(\\/([a-z0-9][a-z0-9\\-]*|\\{[a-zA-Z][a-zA-Z0-9_]*\\}))*$"

@@ -1,0 +1,7 @@
+{
+  "selfNode": "example",
+  "leader": "example",
+  "oldest": "example",
+  "unreachable": [],
+  "members": []
+}
