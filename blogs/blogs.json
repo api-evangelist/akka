@@ -1,0 +1,13 @@
+{
+  "repo": "akka",
+  "feeds": [
+    {
+      "source": "https://akka.io/blog/",
+      "feed_url": "https://akka.io/blog/rss.xml",
+      "saved": 10,
+      "title": "AKKA Blogs"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:20:33Z"
+}
