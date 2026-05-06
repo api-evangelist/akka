@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Akka
 providerId: akka
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Actor Model
   - Distributed Systems
@@ -14,93 +15,50 @@ tags:
   - Reactive
   - Scala
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Akka API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Akka does not publish a centralized public rate-limit policy for its libraries, SDK, or Serverless
+  platform. Throughput characteristics are tied to provisioned cores (self-managed) or Akka hours / per-region
+  capacity (managed). Application-level back-pressure is handled by Akka Streams' reactive-streams backpressure
+  protocol rather than HTTP rate limits. Confirm specific service throttling with the Akka support team
+  for managed deployments.
+sources:
+  - https://akka.io/pricing
+  - https://doc.akka.io/
+notes: No public rate-limit documentation - limits are provisioned via core/region/Akka-hour purchases
+  and operationally enforced by the platform.
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Akka Management
-      - Akka HTTP
-      - Akka Streams
-      - Akka gRPC
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Akka Management
-      - Akka HTTP
-      - Akka Streams
-      - Akka gRPC
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Akka Management
-      - Akka HTTP
-      - Akka Streams
-      - Akka gRPC
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Akka Management
-      - Akka HTTP
-      - Akka Streams
-      - Akka gRPC
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Akka Management
-      - Akka HTTP
-      - Akka Streams
-      - Akka gRPC
+  - name: Self-Managed Throughput
+    scope: deployment
+    metric: varies
+    limit: provisioned by per-core licensing - throughput scales with core count
+    notes: Akka SDK and Akka Libraries scale linearly with provisioned cores. Backpressure is managed
+      via Akka Streams and reactive-streams semantics in-application.
+  - name: Akka Serverless Throughput
+    scope: account
+    metric: varies
+    limit: scales with Akka hours consumed and platform capacity
+    notes: Elastic scaling under Akka Serverless; consult Akka support for tenant-level throttle thresholds.
+  - name: Akka in Your VPC Throughput
+    scope: account/region
+    metric: varies
+    limit: provisioned per-region capacity
+    notes: Throughput is dimensioned during contract negotiation alongside data isolation and compliance
+      requirements.
 policies:
+  - name: Reactive Backpressure
+    description: Akka Streams uses Reactive Streams backpressure - downstream consumers signal demand to
+      upstream publishers, replacing traditional rate-limit signaling at the HTTP layer.
+  - name: Capacity Planning
+    description: For self-managed deployments, throughput is provisioned by core count; for managed services,
+      by Akka hours or region capacity. Customers right-size with Akka technical account managers.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
+    description: Clients integrating with Akka HTTP services should implement exponential backoff with
+      jitter and honor Retry-After headers if returned by user-implemented services.
   - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Sustained usage materially exceeding contracted capacity may be subject to fair-use throttling
+      under managed-service agreements.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

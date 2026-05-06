@@ -4,7 +4,8 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Akka
 providerId: akka
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Actor Model
   - Distributed Systems
@@ -13,139 +14,154 @@ tags:
   - Microservices
   - Reactive
   - Scala
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: Akka offers a hybrid commercial model. Pre-production usage and OSS/academia/startup workloads
+  are free. Production workloads are licensed in two shapes - self-managed (per-core annual licensing for
+  Akka SDK and Akka Libraries with custom pricing) and Akka-managed (Akka Serverless starting at $0.25
+  per Akka hour, or per-region annual subscriptions for dedicated VPC deployments). Volume discounts and
+  flexible multi-cloud credits are available via committed-use contracts.
+sources:
+  - https://akka.io/pricing
 plans:
-  - id: akka-free
-    name: Free
+  - id: akka-development
+    name: Development & Pre-Production
     type: freemium
-    description: Free entry tier for the Akka API surface. Intended for evaluation, prototyping, and low-volume
-      integrations. Real limits and pricing must be reconciled with the provider's published plan documentation.
+    description: Free commercial license for pre-production workloads. Includes confidential ticket support,
+      Akkademy training, liability protections, and 4-month renewals. Also free for OSS, academia, and
+      startups.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
+      - label: Pre-Production License
+        description: Free commercial license valid for development and pre-production workloads
+        name: preprod_license
+        type: flat
+        metric: month
+        limit: -1
         timeFrame: month
         geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Akka Management
-      - name: Akka HTTP
-      - name: Akka Streams
-      - name: Akka gRPC
-  - id: akka-pro
-    name: Professional
-    type: paid
-    description: Production tier for Akka. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Commercial License (Pre-Production)
+      - name: Confidential Ticket Support
+      - name: Akkademy Training
+      - name: Liability Protections
+      - name: 4-Month Renewals
+      - name: Akka SDK
+      - name: Akka Libraries
+  - id: akka-sdk
+    name: Akka SDK (Self-Managed)
+    type: subscription
+    description: Per-core annual licensing for self-managed Akka SDK production deployments. Targeted at
+      agentic systems with 24/7 support and technical management. Free for OSS, academia, startups, and
+      pre-prod.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
+      - label: Per-Core License
+        description: Annual per-core subscription for self-managed Akka SDK production
+        name: per_core_sdk
+        type: subscription
+        metric: core
+        limit: -1
+        timeFrame: year
         geo: global
-        domains: []
         unit: 1
-        price: TBD
+        price: custom
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
+    elements:
+      - name: Akka SDK Production License
+      - name: 24/7 Support
+      - name: Technical Account Management
+      - name: Agentic Systems Optimization
+  - id: akka-libraries
+    name: Akka Libraries (Self-Managed)
+    type: subscription
+    description: Per-core annual licensing for self-managed Akka Libraries production deployments. Targeted
+      at distributed-systems workloads with 24/7 support and technical management.
+    entries:
+      - label: Per-Core License
+        description: Annual per-core subscription for self-managed Akka Libraries production
+        name: per_core_libraries
+        type: subscription
+        metric: core
+        limit: -1
+        timeFrame: year
         geo: global
-        domains: []
         unit: 1
-        price: '0.00'
+        price: custom
         userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+    elements:
+      - name: Akka Libraries Production License
+      - name: 24/7 Support
+      - name: Technical Account Management
+      - name: Distributed Systems Coverage
+  - id: akka-serverless
+    name: Akka Serverless
+    type: usage-based
+    description: Akka-operated serverless platform billed per Akka hour. Includes active-active HA/DR,
+      runtime patching, rolling updates, multi-tenancy, elastic scaling, and shared compute.
+    entries:
+      - label: Akka Hour
+        description: Hourly metered consumption of the Akka Serverless platform
+        name: akka_hour
         type: metered
-        metric: requests
+        metric: akka-hour
         limit: -1
         timeFrame: month
         geo: global
-        domains: []
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: 'starting at $0.25 / Akka hour'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Akka Management
-      - name: Akka HTTP
-      - name: Akka Streams
-      - name: Akka gRPC
-  - id: akka-enterprise
-    name: Enterprise
+      - name: Active-Active HA/DR
+      - name: Runtime Patching
+      - name: Rolling Updates
+      - name: Multi-Tenancy
+      - name: Elastic Scaling
+      - name: Shared Compute
+      - name: Credit Card / Contract / AWS / GCP / Azure Marketplace Billing
+  - id: akka-vpc
+    name: Akka in Your VPC
     type: enterprise
-    description: Custom-negotiated tier for Akka. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    description: Akka-managed deployments inside the customer's VPC. Per-region annual subscription with
+      data isolation, custom security posture, strict compliance support, and data sovereignty controls.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Per-Region Subscription
+        description: Annual subscription per managed region inside the customer VPC
+        name: per_region_vpc
+        type: subscription
+        metric: region
         limit: -1
-        timeFrame: month
+        timeFrame: year
         geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
         unit: 1
         price: custom
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Akka Management
-      - name: Akka HTTP
-      - name: Akka Streams
-      - name: Akka gRPC
+      - name: Data Isolation
+      - name: Custom Security Posture
+      - name: Strict Compliance Support
+      - name: Data Sovereignty
+      - name: Akka-Managed Operations
+  - id: akka-committed-use
+    name: Committed Use Contract
+    type: enterprise
+    description: Volume-discounted committed-usage contract with 24x7 white-glove support and flexible
+      multi-cloud credit usage.
+    entries:
+      - label: Committed Spend
+        description: Negotiated annual or multi-year committed-spend agreement
+        name: committed_spend
+        type: subscription
+        metric: contract
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: Volume Discounts
+      - name: 24x7 White-Glove Support
+      - name: Flexible Multi-Cloud Credits
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

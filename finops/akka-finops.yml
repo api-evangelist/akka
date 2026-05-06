@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,10 +9,11 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Akka
 providerId: akka
-publisherName: Akka
-serviceCategory: API
+publisherName: Lightbend, Inc.
+serviceCategory: Application Platform
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Actor Model
   - Distributed Systems
@@ -21,53 +23,16 @@ tags:
   - Reactive
   - Scala
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the Akka API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: 'FOCUS-aligned FinOps for Akka: per-core annual subscriptions for self-managed Akka SDK and
+  Akka Libraries, per-Akka-hour metered usage for Akka Serverless, and per-region subscriptions for in-VPC
+  deployments. Committed-use contracts unlock volume discounts and multi-cloud credits.'
+sources:
+  - https://akka.io/pricing
+  - https://focus.finops.org/focus-specification/v1-3/
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Subscription + Pay-As-You-Go + Committed Use
+  billingFrequency: Annual (per-core / per-region) and Monthly (Serverless)
   billingCurrency: USD
   chargeCategories:
     - Usage
@@ -75,87 +40,59 @@ billingModel:
     - Tax
     - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
   ServiceName: Akka
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Application Platform
   ProviderName: Akka
-  PublisherName: Akka
-  InvoiceIssuerName: Akka
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Lightbend, Inc.
+  InvoiceIssuerName: Lightbend, Inc.
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: per_core_year
+    description: Annual per-core licensing for self-managed Akka SDK and Akka Libraries
+    unit: core-year
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
+      - product
+      - cluster
+      - environment
+  - name: akka_hours
+    description: Hourly compute metering for Akka Serverless
+    unit: akka-hour
+    aggregation: sum
+    dimensions:
+      - service
       - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - environment
+  - name: per_region_year
+    description: Annual per-region subscription for Akka in Your VPC deployments
+    unit: region-year
     aggregation: sum
     dimensions:
-      - api
       - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - cloud
+  - name: committed_spend
+    description: Committed-use spend tracked against multi-cloud credit pool
+    unit: USD
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Akka Management
-    baseURL: ''
-    tags:
-      - Actor Model
-      - Cluster Management
-      - Distributed Systems
-      - Health Checks
-    serviceName: Akka Management
-    serviceCategory: API
-  - name: Akka HTTP
-    baseURL: ''
-    tags:
-      - HTTP
-      - REST API
-      - Reactive
-      - Streaming
-    serviceName: Akka HTTP
-    serviceCategory: API
-  - name: Akka Streams
-    baseURL: ''
-    tags:
-      - Backpressure
-      - Data Streaming
-      - Reactive
-      - Reactive Streams
-    serviceName: Akka Streams
-    serviceCategory: API
-  - name: Akka gRPC
-    baseURL: ''
-    tags:
-      - gRPC
-      - Protobuf
-      - Streaming
-    serviceName: Akka gRPC
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - cloud
+      - product
+principles:
+  - name: Visibility
+    description: Track Akka Serverless consumption via the Akka console and per-tenant Akka-hour reports.
+      Self-managed deployments correlate cost to provisioned cores via license inventories.
+  - name: Allocation
+    description: Tag Akka Serverless services and Akka in-VPC regions by team, environment, and product
+      so per-core and per-Akka-hour spend can be attributed to consuming applications.
+  - name: Optimization
+    description: Right-size core counts for self-managed Akka clusters; use elastic scaling on Akka Serverless;
+      adopt committed-use contracts for steady-state workloads to capture volume discounts and multi-cloud
+      credit flexibility.
+  - name: Accountability
+    description: Establish budget owners per Akka cluster or Serverless tenant; integrate Akka invoices
+      into chargeback/showback workflows alongside underlying cloud spend.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
