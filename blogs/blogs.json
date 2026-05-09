@@ -3,11 +3,11 @@
   "feeds": [
     {
       "source": "https://akka.io/blog/",
-      "feed_url": "https://akka.io/blog/rss.xml",
-      "saved": 10,
-      "title": "AKKA Blogs"
+      "feed_url": "https://akka.io/blog/atom.xml",
+      "title": "AKKA Blogs",
+      "saved": 0
     }
   ],
   "post_count": 10,
-  "fetched": "2026-05-03T23:20:33Z"
+  "fetched": "2026-05-09T20:17:51Z"
 }
