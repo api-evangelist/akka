@@ -169,6 +169,25 @@ common:
         description: Akka gRPC for code generation from protobuf and streaming gRPC services
       - name: Spring Boot
         description: Integration with Spring Boot for mixed Akka and Spring applications
+  - type: Integrations
+    url: https://akka.io/partners
+integrations:
+  - name: akka_logo
+  - name: Manulife_logo_with_AI
+  - name: avows_logo_reverse (1)
+  - name: aws-logo-white
+  - name: carahsoft-logo-white
+  - name: far-networks
+  - name: gcp-logo-white
+  - name: improving-logo-white
+  - name: infosys-logo-white
+  - name: azure-logo-white
+  - name: peperina-software-logo-white
+  - name: scalac-logo-white
+  - name: shi-logo-white
+  - name: twoday-logo-white
+  - name: virtuslab-logo-white
+  - name: Footer
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
