@@ -1,0 +1,184 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Akka Management API — Cluster
+  description: 'Akka Management API — Cluster. 4 operations. Lead operation: Akka List Cluster Members. Self-contained Naftiko
+    capability covering one Akka business surface.'
+  tags:
+  - Akka
+  - Cluster
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AKKA_API_KEY: AKKA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-cluster
+    baseUri: http://localhost:8558
+    description: Akka Management API — Cluster business capability. Self-contained, no shared references.
+    resources:
+    - name: cluster-members
+      path: /cluster/members
+      operations:
+      - name: getclustermembers
+        method: GET
+        description: Akka List Cluster Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: cluster-members-address
+      path: /cluster/members/{address}
+      operations:
+      - name: getclustermember
+        method: GET
+        description: Akka Get Cluster Member Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          description: Akka address of the member (e.g., akka://system@host:port).
+          required: true
+      - name: updateclustermember
+        method: PUT
+        description: Akka Update Member Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: downclustermember
+        method: DELETE
+        description: Akka Down a Cluster Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: address
+          in: path
+          type: string
+          required: true
+  exposes:
+  - type: rest
+    namespace: management-cluster-rest
+    port: 8080
+    description: REST adapter for Akka Management API — Cluster. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/cluster/members
+      name: cluster-members
+      description: REST surface for cluster-members.
+      operations:
+      - method: GET
+        name: getclustermembers
+        description: Akka List Cluster Members
+        call: management-cluster.getclustermembers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cluster/members/{address}
+      name: cluster-members-address
+      description: REST surface for cluster-members-address.
+      operations:
+      - method: GET
+        name: getclustermember
+        description: Akka Get Cluster Member Details
+        call: management-cluster.getclustermember
+        with:
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateclustermember
+        description: Akka Update Member Status
+        call: management-cluster.updateclustermember
+        with:
+          address: rest.address
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: downclustermember
+        description: Akka Down a Cluster Member
+        call: management-cluster.downclustermember
+        with:
+          address: rest.address
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-cluster-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Akka Management API — Cluster. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: akka-list-cluster-members
+      description: Akka List Cluster Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-cluster.getclustermembers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: akka-get-cluster-member-details
+      description: Akka Get Cluster Member Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-cluster.getclustermember
+      with:
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: akka-update-member-status
+      description: Akka Update Member Status
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-cluster.updateclustermember
+      with:
+        address: tools.address
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: akka-down-cluster-member
+      description: Akka Down a Cluster Member
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-cluster.downclustermember
+      with:
+        address: tools.address
+      outputParameters:
+      - type: object
+        mapping: $.

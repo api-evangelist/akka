@@ -1,0 +1,67 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Akka Management API — Bootstrap
+  description: 'Akka Management API — Bootstrap. 1 operations. Lead operation: Akka Get Bootstrap Seed Nodes. Self-contained
+    Naftiko capability covering one Akka business surface.'
+  tags:
+  - Akka
+  - Bootstrap
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AKKA_API_KEY: AKKA_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-bootstrap
+    baseUri: http://localhost:8558
+    description: Akka Management API — Bootstrap business capability. Self-contained, no shared references.
+    resources:
+    - name: bootstrap-seed-nodes
+      path: /bootstrap/seed-nodes
+      operations:
+      - name: getseednodes
+        method: GET
+        description: Akka Get Bootstrap Seed Nodes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    namespace: management-bootstrap-rest
+    port: 8080
+    description: REST adapter for Akka Management API — Bootstrap. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/bootstrap/seed-nodes
+      name: bootstrap-seed-nodes
+      description: REST surface for bootstrap-seed-nodes.
+      operations:
+      - method: GET
+        name: getseednodes
+        description: Akka Get Bootstrap Seed Nodes
+        call: management-bootstrap.getseednodes
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-bootstrap-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Akka Management API — Bootstrap. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: akka-get-bootstrap-seed-nodes
+      description: Akka Get Bootstrap Seed Nodes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-bootstrap.getseednodes
+      outputParameters:
+      - type: object
+        mapping: $.
