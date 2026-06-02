@@ -2,13 +2,20 @@
   "repo": "akka",
   "feeds": [
     {
-      "source": "https://akka.io/blog/",
+      "source": "https://akka.io/blog/atom.xml",
       "feed_url": "https://akka.io/blog/atom.xml",
-      "title": "AKKA Blogs",
+      "title": "",
       "saved": 0,
-      "last_error": "http_404"
+      "method": "feed"
+    },
+    {
+      "source": "https://github.com/akka",
+      "feed_url": "https://github.com/akka",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 13,
+  "fetched": "2026-06-01T23:35:02Z"
 }
