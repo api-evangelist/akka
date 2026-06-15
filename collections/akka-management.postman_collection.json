@@ -1,0 +1,790 @@
+{
+  "item": [
+    {
+      "id": "1ccc8751-313f-4a73-9591-b470502c1eb8",
+      "name": "Health",
+      "description": {
+        "content": "Health check endpoints for liveness and readiness probes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a9b490f-fd8b-4d0c-813c-58c1f3f9ba27",
+          "name": "Akka Liveness Check",
+          "request": {
+            "name": "Akka Liveness Check",
+            "description": {
+              "content": "Returns 200 if the actor system is running. Used for Kubernetes liveness probes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "17aa5127-870d-4d73-b1da-7925e5cee72a",
+              "name": "Actor system is alive.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Up\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81ce8158-b12b-407a-8ea1-ec46eb8337d7",
+              "name": "Actor system is not available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b1f2568-b6a0-4c59-b8ff-2151057415d6",
+          "name": "Akka Readiness Check",
+          "request": {
+            "name": "Akka Readiness Check",
+            "description": {
+              "content": "Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6bbc988-eb16-4d65-971a-2f3c5819d7df",
+              "name": "Service is ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Up\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9afc1d2d-a9f3-4196-8999-e80599b7f258",
+              "name": "Service is not ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e62cf5ec-3072-45e0-b0f1-77143d4337db",
+      "name": "Cluster",
+      "description": {
+        "content": "Cluster membership management endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bb88574b-b69f-459c-a6c8-6871e75fa00e",
+          "name": "Akka List Cluster Members",
+          "request": {
+            "name": "Akka List Cluster Members",
+            "description": {
+              "content": "Returns the current cluster membership information including all members and their status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "members"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "14892068-3ff3-4744-a956-75bc61e77e25",
+              "name": "Cluster membership information.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"selfNode\": \"string\",\n  \"leader\": \"string\",\n  \"oldest\": \"string\",\n  \"unreachable\": [\n    \"string\",\n    \"string\"\n  ],\n  \"members\": [\n    {\n      \"node\": \"string\",\n      \"nodeUid\": \"string\",\n      \"status\": \"Removed\",\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"node\": \"string\",\n      \"nodeUid\": \"string\",\n      \"status\": \"Exiting\",\n      \"roles\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4ea7b3d-fd42-4dcd-ad3f-9d73889aea3c",
+          "name": "Akka Get Cluster Member Details",
+          "request": {
+            "name": "Akka Get Cluster Member Details",
+            "description": {
+              "content": "Returns details for a specific cluster member.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "members",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) Akka address of the member (e.g., akka://system@host:port)."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4d96dead-f5cf-4cc9-999e-b393249d8f28",
+              "name": "Member details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Akka address of the member (e.g., akka://system@host:port)."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"node\": \"string\",\n  \"nodeUid\": \"string\",\n  \"status\": \"Exiting\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c6bb559-ddff-46d5-b477-8b5f5e21fad7",
+              "name": "Member not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) Akka address of the member (e.g., akka://system@host:port)."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d5e3542-229a-4c11-82c7-a0c245fce08d",
+          "name": "Akka Update Member Status",
+          "request": {
+            "name": "Akka Update Member Status",
+            "description": {
+              "content": "Change the status of a cluster member (e.g., down a member).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "members",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"operation\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "45531bf5-4f97-4d15-85c8-1d0806bd39d9",
+              "name": "Operation performed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b68ab37b-da93-4b4e-8b03-c88ac577bd80",
+              "name": "Member not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"operation\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc7569d3-80f3-47e7-aa37-f21865f5eed9",
+          "name": "Akka Down a Cluster Member",
+          "request": {
+            "name": "Akka Down a Cluster Member",
+            "description": {
+              "content": "Mark a cluster member as down.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cluster",
+                "members",
+                ":address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "address",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "70b081ad-a0e7-42cc-a43b-828229844c16",
+              "name": "Member marked as down.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4f7cf4c-f660-4c67-9fb2-c32b1b056bb2",
+              "name": "Member not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cluster",
+                    "members",
+                    ":address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "address",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "1a2540ed-c956-4dcc-9e58-10e97bf9724b",
+      "name": "Bootstrap",
+      "description": {
+        "content": "Cluster bootstrap discovery endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80add5f4-ff26-42cf-8d6d-2caf17f65006",
+          "name": "Akka Get Bootstrap Seed Nodes",
+          "request": {
+            "name": "Akka Get Bootstrap Seed Nodes",
+            "description": {
+              "content": "Returns the seed nodes discovered during cluster bootstrap.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bootstrap",
+                "seed-nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4704cf42-216e-4c97-8914-5af31f29899c",
+              "name": "Seed nodes list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bootstrap",
+                    "seed-nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"seedNodes\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8558",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7079d807-0bcf-4e51-9298-8f0190b0e3be",
+    "name": "Akka Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.\n\nContact Support:\n Name: Akka",
+      "type": "text/plain"
+    }
+  }
+}
