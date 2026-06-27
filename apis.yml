@@ -154,7 +154,7 @@ common:
         description: Integration with Spring Boot for mixed Akka and Spring applications
   - type: Integrations
     url: https://akka.io/partners
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://akka.io/llms.txt
 integrations:
   - name: akka_logo
