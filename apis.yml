@@ -82,6 +82,10 @@ apis:
       - type: Documentation
         url: https://doc.akka.io/libraries/akka-grpc/current/
 common:
+  - type: TrustCenter
+    url: security/akka-trust-center.yml
+  - type: DomainSecurity
+    url: security/akka-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/akka-io
   - type: Website
