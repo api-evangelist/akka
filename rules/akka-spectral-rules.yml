@@ -1,103 +1,134 @@
-# Akka Management API Spectral Ruleset
-
+# akka — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - path-params-casing: snake @ 100% (n=3)
+#   - operationid-casing: camel @ 100% (n=7)
+#   - schema-properties-casing: snake @ 78% (n=9)
+#   - merge: kept 12 existing, added 4 measured, upgraded 0
+#   - added: path-params-casing, operationid-casing, schema-properties-casing, no-empty-descriptions
+extends:
+  - spectral:oas
 rules:
   info-title-akka-prefix:
-    message: "API title should start with 'Akka'"
+    message: API title should start with 'Akka'
     severity: warn
-    given: "$.info.title"
+    given: $.info.title
     then:
       function: pattern
       functionOptions:
-        match: "^Akka"
-
+        match: ^Akka
   info-description-required:
-    message: "API info must have a description"
+    message: API info must have a description
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: description
       function: truthy
-
   info-version-required:
-    message: "API info must have a version"
+    message: API info must have a version
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: version
       function: truthy
-
   openapi-version-3:
-    message: "Must use OpenAPI 3.x"
+    message: Must use OpenAPI 3.x
     severity: error
-    given: "$"
+    given: $
     then:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\."
-
+        match: ^3\.
   servers-defined:
-    message: "Servers must be defined"
+    message: Servers must be defined
     severity: warn
-    given: "$"
+    given: $
     then:
       field: servers
       function: truthy
-
   operation-summary-required:
-    message: "Every operation must have a summary"
+    message: Every operation must have a summary
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: summary
       function: truthy
-
   operation-summary-akka-prefix:
-    message: "Operation summaries should start with 'Akka'"
+    message: Operation summaries should start with 'Akka'
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete].summary"
+    given: $.paths[*][get,post,put,patch,delete].summary
     then:
       function: pattern
       functionOptions:
-        match: "^Akka"
-
+        match: ^Akka
   operation-id-required:
-    message: "Every operation must have an operationId"
+    message: Every operation must have an operationId
     severity: error
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: operationId
       function: truthy
-
   operation-tags-required:
-    message: "Every operation must have at least one tag"
+    message: Every operation must have at least one tag
     severity: warn
-    given: "$.paths[*][get,post,put,patch,delete]"
+    given: $.paths[*][get,post,put,patch,delete]
     then:
       field: tags
       function: truthy
-
   response-description-required:
-    message: "All responses must have a description"
+    message: All responses must have a description
     severity: error
-    given: "$.paths[*][*].responses[*]"
+    given: $.paths[*][*].responses[*]
     then:
       field: description
       function: truthy
-
   get-no-request-body:
-    message: "GET operations must not have a request body"
+    message: GET operations must not have a request body
     severity: error
-    given: "$.paths[*].get"
+    given: $.paths[*].get
     then:
       field: requestBody
       function: falsy
-
   paths-kebab-case:
-    message: "Path segments should use kebab-case"
+    message: Path segments should use kebab-case
     severity: info
-    given: "$.paths[*]~"
+    given: $.paths[*]~
     then:
       function: pattern
       functionOptions:
-        match: "^(\\/([a-z0-9][a-z0-9\\-]*|\\{[a-zA-Z][a-zA-Z0-9_]*\\}))*$"
+        match: ^(\/([a-z0-9][a-z0-9\-]*|\{[a-zA-Z][a-zA-Z0-9_]*\}))*$
+  path-params-casing:
+    description: Path parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*].parameters[?(@.in=='path')].name
+    then:
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: info
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  no-empty-descriptions:
+    description: Descriptions must not be empty strings.
+    severity: warn
+    given: $..description
+    then:
+      function: truthy
