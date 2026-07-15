@@ -82,6 +82,8 @@ apis:
       - type: Documentation
         url: https://doc.akka.io/libraries/akka-grpc/current/
 common:
+  - type: AgenticAccess
+    url: agentic-access/akka-agentic-access.yml
   - type: TrustCenter
     url: security/akka-trust-center.yml
   - type: DomainSecurity
