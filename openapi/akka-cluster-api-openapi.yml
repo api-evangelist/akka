@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Akka Management Bootstrap Cluster API
+  description: REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.
+  version: 1.0.0
+  contact:
+    name: Akka
+    url: https://doc.akka.io/docs/akka-management/current/
+  license:
+    name: Business Source License 1.1
+    url: https://akka.io/license/
+servers:
+- url: http://localhost:8558
+  description: Default Akka Management HTTP endpoint
+tags:
+- name: Cluster
+  description: Cluster membership management endpoints.
+paths:
+  /cluster/members:
+    get:
+      operationId: getClusterMembers
+      summary: Akka List Cluster Members
+      description: Returns the current cluster membership information including all members and their status.
+      tags:
+      - Cluster
+      responses:
+        '200':
+          description: Cluster membership information.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterMembers'
+  /cluster/members/{address}:
+    get:
+      operationId: getClusterMember
+      summary: Akka Get Cluster Member Details
+      description: Returns details for a specific cluster member.
+      tags:
+      - Cluster
+      parameters:
+      - name: address
+        in: path
+        required: true
+        description: Akka address of the member (e.g., akka://system@host:port).
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Member details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterMember'
+        '404':
+          description: Member not found.
+    put:
+      operationId: updateClusterMember
+      summary: Akka Update Member Status
+      description: Change the status of a cluster member (e.g., down a member).
+      tags:
+      - Cluster
+      parameters:
+      - name: address
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                operation:
+                  type: string
+                  description: Operation to perform on the member.
+                  enum:
+                  - Down
+                  - Leave
+              required:
+              - operation
+      responses:
+        '200':
+          description: Operation performed successfully.
+        '404':
+          description: Member not found.
+    delete:
+      operationId: downClusterMember
+      summary: Akka Down a Cluster Member
+      description: Mark a cluster member as down.
+      tags:
+      - Cluster
+      parameters:
+      - name: address
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Member marked as down.
+        '404':
+          description: Member not found.
+components:
+  schemas:
+    ClusterMember:
+      type: object
+      properties:
+        node:
+          type: string
+          description: Akka address of the member.
+        nodeUid:
+          type: string
+          description: Unique identifier for the member.
+        status:
+          type: string
+          description: Current member status.
+          enum:
+          - Joining
+          - WeaklyUp
+          - Up
+          - Leaving
+          - Exiting
+          - Down
+          - Removed
+        roles:
+          type: array
+          items:
+            type: string
+    ClusterMembers:
+      type: object
+      properties:
+        selfNode:
+          type: string
+          description: Address of the current node.
+        leader:
+          type: string
+          description: Address of the cluster leader.
+        oldest:
+          type: string
+          description: Address of the oldest node.
+        unreachable:
+          type: array
+          items:
+            type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterMember'

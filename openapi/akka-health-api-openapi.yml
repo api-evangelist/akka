@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Akka Management Bootstrap Health API
+  description: REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.
+  version: 1.0.0
+  contact:
+    name: Akka
+    url: https://doc.akka.io/docs/akka-management/current/
+  license:
+    name: Business Source License 1.1
+    url: https://akka.io/license/
+servers:
+- url: http://localhost:8558
+  description: Default Akka Management HTTP endpoint
+tags:
+- name: Health
+  description: Health check endpoints for liveness and readiness probes.
+paths:
+  /alive:
+    get:
+      operationId: getAlive
+      summary: Akka Liveness Check
+      description: Returns 200 if the actor system is running. Used for Kubernetes liveness probes.
+      tags:
+      - Health
+      responses:
+        '200':
+          description: Actor system is alive.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Up
+        '500':
+          description: Actor system is not available.
+  /ready:
+    get:
+      operationId: getReady
+      summary: Akka Readiness Check
+      description: Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes.
+      tags:
+      - Health
+      responses:
+        '200':
+          description: Service is ready.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Up
+        '500':
+          description: Service is not ready.
