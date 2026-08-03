@@ -1,0 +1,18 @@
+{
+  "provider": "akka",
+  "sources": [
+    "akka-bootstrap-api-openapi.yml",
+    "akka-cluster-api-openapi.yml",
+    "akka-health-api-openapi.yml"
+  ],
+  "outputs": [
+    "akka-bootstrap-api-openapi.yml",
+    "akka-cluster-api-openapi.yml",
+    "akka-health-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
