@@ -1,0 +1,104 @@
+{
+  "item": [
+    {
+      "id": "73f7fe2b-ea81-4a4a-b73d-5311dbe4fd45",
+      "name": "Bootstrap",
+      "description": {
+        "content": "Cluster bootstrap discovery endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "73e1c124-ba09-4198-b7da-401031bf4262",
+          "name": "Akka Get Bootstrap Seed Nodes",
+          "request": {
+            "name": "Akka Get Bootstrap Seed Nodes",
+            "description": {
+              "content": "Returns the seed nodes discovered during cluster bootstrap.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "bootstrap",
+                "seed-nodes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "890f2018-184c-45db-aa5a-ef9d86e8234a",
+              "name": "Seed nodes list.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "bootstrap",
+                    "seed-nodes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"seedNodes\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8558",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fae4d26e-57b1-4200-bb1a-1ea9447228e5",
+    "name": "Akka Management Bootstrap API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.\n\nContact Support:\n Name: Akka",
+      "type": "text/plain"
+    }
+  }
+}

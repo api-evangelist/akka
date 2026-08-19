@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "b42ce4fa-113f-4221-a109-c33705d439bd",
+      "name": "Health",
+      "description": {
+        "content": "Health check endpoints for liveness and readiness probes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b12e82bd-3cc6-4963-a336-aa231859d6c2",
+          "name": "Akka Liveness Check",
+          "request": {
+            "name": "Akka Liveness Check",
+            "description": {
+              "content": "Returns 200 if the actor system is running. Used for Kubernetes liveness probes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "alive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a4d9d487-6a40-4095-9199-d34d5f3743c9",
+              "name": "Actor system is alive.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Up\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6013aef-e0be-47b7-983b-3c02034a6e1c",
+              "name": "Actor system is not available.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "alive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b6782aa8-c914-4ced-a2a7-05105cd51464",
+          "name": "Akka Readiness Check",
+          "request": {
+            "name": "Akka Readiness Check",
+            "description": {
+              "content": "Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ready"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3db7f29-ed46-44cd-9c8b-23e4812c71e5",
+              "name": "Service is ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"Up\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55e1805d-7119-49d0-aadc-079921e1cab4",
+              "name": "Service is not ready.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ready"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8558",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "644840ea-310e-450f-8981-6c18d2e7b481",
+    "name": "Akka Management Bootstrap Health API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.\n\nContact Support:\n Name: Akka",
+      "type": "text/plain"
+    }
+  }
+}

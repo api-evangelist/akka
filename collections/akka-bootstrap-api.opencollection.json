@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Akka Management Bootstrap API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bootstrap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Akka Get Bootstrap Seed Nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8558/bootstrap/seed-nodes"
+          },
+          "docs": "Returns the seed nodes discovered during cluster bootstrap."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

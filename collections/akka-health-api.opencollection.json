@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Akka Management Bootstrap Health API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Akka Liveness Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8558/alive"
+          },
+          "docs": "Returns 200 if the actor system is running. Used for Kubernetes liveness probes."
+        },
+        {
+          "info": {
+            "name": "Akka Readiness Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8558/ready"
+          },
+          "docs": "Returns 200 if the service is ready to accept traffic. Used for Kubernetes readiness probes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

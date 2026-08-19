@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Akka Management Bootstrap Cluster API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Cluster",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Akka List Cluster Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8558/cluster/members"
+          },
+          "docs": "Returns the current cluster membership information including all members and their status."
+        },
+        {
+          "info": {
+            "name": "Akka Get Cluster Member Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8558/cluster/members/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "Akka address of the member (e.g., akka://system@host:port)."
+              }
+            ]
+          },
+          "docs": "Returns details for a specific cluster member."
+        },
+        {
+          "info": {
+            "name": "Akka Update Member Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8558/cluster/members/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Change the status of a cluster member (e.g., down a member)."
+        },
+        {
+          "info": {
+            "name": "Akka Down a Cluster Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8558/cluster/members/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a cluster member as down."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
