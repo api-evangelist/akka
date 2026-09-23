@@ -1,9 +1,7 @@
 {
   "provider": "akka",
   "sources": [
-    "akka-bootstrap-api-openapi.yml",
-    "akka-cluster-api-openapi.yml",
-    "akka-health-api-openapi.yml"
+    "_original/akka-management.json"
   ],
   "outputs": [
     "akka-bootstrap-api-openapi.yml",
@@ -13,6 +11,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "akka-management.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "akka-bootstrap-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akka-cluster-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "akka-health-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Akka Management Bootstrap API
   description: REST API provided by Akka Management for cluster health checks, membership management, and cluster bootstrap operations.
