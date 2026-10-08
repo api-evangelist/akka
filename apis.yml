@@ -131,6 +131,12 @@ apis:
   - type: Documentation
     url: https://doc.akka.io/libraries/akka-management/current/
 common:
+  - type: Plans
+    url: plans/akka-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/akka-rate-limits.yml
+  - type: FinOps
+    url: finops/akka-finops.yml
   - type: AgenticAccess
     url: agentic-access/akka-agentic-access.yml
   - type: TrustCenter
