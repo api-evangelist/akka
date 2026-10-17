@@ -104,6 +104,26 @@ paths:
           description: Member not found.
 components:
   schemas:
+    ClusterMembers:
+      type: object
+      properties:
+        selfNode:
+          type: string
+          description: Address of the current node.
+        leader:
+          type: string
+          description: Address of the cluster leader.
+        oldest:
+          type: string
+          description: Address of the oldest node.
+        unreachable:
+          type: array
+          items:
+            type: string
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterMember'
     ClusterMember:
       type: object
       properties:
@@ -128,23 +148,3 @@ components:
           type: array
           items:
             type: string
-    ClusterMembers:
-      type: object
-      properties:
-        selfNode:
-          type: string
-          description: Address of the current node.
-        leader:
-          type: string
-          description: Address of the cluster leader.
-        oldest:
-          type: string
-          description: Address of the oldest node.
-        unreachable:
-          type: array
-          items:
-            type: string
-        members:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClusterMember'
