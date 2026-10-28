@@ -1,4 +1,4 @@
-# Akka (akka)
+# Akka
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,125 +66,164 @@
 
 Akka is a toolkit and runtime for building highly concurrent, distributed, and resilient message-driven applications on the JVM using the actor model for Java and Scala. Maintained by Lightbend, Akka provides a comprehensive set of libraries including actors, HTTP, streams, cluster, persistence, and gRPC for building reactive, microservice-based architectures.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/apis.yml)
+**Areas:** Actor Model · Distributed Systems · Framework · Java · Microservices · Reactive · Scala
 
-## Scope
+## Akka on APIs.io
 
-- **Type:** Index
+Everything profiled for Akka is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/akka/](https://apis.io/providers/akka/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- Actor Model
-- Distributed Systems
-- Frameworks
-- Java
-- Microservices
-- Reactive
-- Scala
+- [Akka HTTP](https://apis.io/apis/akka/akka-http/) — Akka HTTP is a full HTTP stack (client and server-side) built on Akka actors and streams. It provides a routing DSL for building REST and WebSocket…
+- [Akka Streams](https://apis.io/apis/akka/akka-streams/) — Akka Streams is a library to process and transfer a sequence of elements using bounded buffer space, implementing the Reactive Streams specification for…
+- [Akka gRPC](https://apis.io/apis/akka/akka-grpc/) — Akka gRPC provides support for building streaming gRPC servers and clients on top of Akka Streams, with code generation from protobuf definitions for both…
+- [Akka Bootstrap API](https://apis.io/apis/akka/akka-bootstrap-api/) — Cluster bootstrap discovery endpoints.
+- [Akka Cluster API](https://apis.io/apis/akka/akka-cluster-api/) — Cluster membership management endpoints.
+- [Akka Health API](https://apis.io/apis/akka/akka-health-api/) — Health check endpoints for liveness and readiness probes.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Akka Management
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Akka Management provides a suite of utilities for operating Akka-based distributed systems, including an HTTP management API for cluster management, health checks, and cluster bootstrap. The HTTP API exposes endpoints for liveness probes, readiness probes, cluster member management, and seed node discovery.
+- [Akka Agentic Access](https://apis.io/agentic-access/akka/akka-agentic-access/)
 
-- **Human URL:** [https://doc.akka.io/libraries/akka-management/current/](https://doc.akka.io/libraries/akka-management/current/)
+#### JSON Schema (1)
 
-#### Tags
+The data models the API reads and writes.
 
-- Actor Model
-- Cluster Management
-- Distributed Systems
-- Health Checks
+- [Akka Configuration](https://apis.io/schemas/akka/akka-config/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://doc.akka.io/libraries/akka-management/current/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/openapi/akka-management.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/akka-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/akka-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Data models expressed in JSON Structure.
 
-### Akka HTTP
+- [Akka Config Structure](https://apis.io/json-structure/akka/akka-config-structure/)
 
-Akka HTTP is a full HTTP stack (client and server-side) built on Akka actors and streams. It provides a routing DSL for building REST and WebSocket services, with built-in JSON marshalling, TLS support, and HTTP/2 capabilities.
+#### JSON-LD (1)
 
-- **Human URL:** [https://doc.akka.io/libraries/akka-http/current/](https://doc.akka.io/libraries/akka-http/current/)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Akka Context](https://apis.io/jsonld/akka/akka-context/)
 
-- HTTP
-- REST API
-- Reactive
-- Streaming
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://doc.akka.io/libraries/akka-http/current/)
-- [Getting Started](https://doc.akka.io/libraries/akka-http/current/introduction.html)
-- [Postman Collection](collections/akka-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/akka-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Akka Vocabulary](https://apis.io/vocabularies/akka/akka-vocabulary/)
 
-### Akka Streams
+#### Examples (3)
 
-Akka Streams is a library to process and transfer a sequence of elements using bounded buffer space, implementing the Reactive Streams specification for asynchronous stream processing with non-blocking backpressure.
+Example requests and responses.
 
-- **Human URL:** [https://doc.akka.io/libraries/akka/current/stream/index.html](https://doc.akka.io/libraries/akka/current/stream/index.html)
+- [Akka Config Example](https://apis.io/examples/akka/akka-config-example/)
+- [Akka Management Clustermember Example](https://apis.io/examples/akka/akka-management-clustermember-example/)
+- [Akka Management Clustermembers Example](https://apis.io/examples/akka/akka-management-clustermembers-example/)
 
-#### Tags
+#### Collections (4)
 
-- Backpressure
-- Data Streaming
-- Reactive
-- Reactive Streams
+Postman and Open Collection request collections.
 
-#### Properties
+- [Akka Management Bootstrap API](https://apis.io/collections/akka/open-akka-bootstrap-api/)
+- [Akka Management Bootstrap Cluster API](https://apis.io/collections/akka/open-akka-cluster-api/)
+- [Akka Management Bootstrap Health API](https://apis.io/collections/akka/open-akka-health-api/)
+- [Akka Management API](https://apis.io/collections/akka/open-akka-management/)
 
-- [Documentation](https://doc.akka.io/libraries/akka/current/stream/index.html)
-- [Postman Collection](collections/akka-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/akka-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (2)
 
-### Akka gRPC
+Spectral rulesets for the provider's contracts.
 
-Akka gRPC provides support for building streaming gRPC servers and clients on top of Akka Streams, with code generation from protobuf definitions for both Java and Scala.
+- [Akka — jsonschema rules](https://apis.io/rules/akka/akka-jsonschema-spectral-rules/)
+- [Akka API Rules](https://apis.io/rules/akka/akka-spectral-rules/)
 
-- **Human URL:** [https://doc.akka.io/libraries/akka-grpc/current/](https://doc.akka.io/libraries/akka-grpc/current/)
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- gRPC
-- Protobuf
-- Streaming
+- [Akka Domain Security](https://apis.io/security/akka/akka-domain-security/)
+- [Akka Trust Center](https://apis.io/security/akka/akka-trust-center/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://doc.akka.io/libraries/akka-grpc/current/)
-- [Postman Collection](collections/akka-management.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/akka-management.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published plans, tiers and prices.
 
-## Common Properties
+- [Akka Plans Pricing](https://apis.io/plans/akka/akka-plans-pricing/)
 
-- [LinkedIn](https://www.linkedin.com/company/akka-io)
+#### Rate limits (1)
+
+Published request limits.
+
+- [Akka Rate Limits](https://apis.io/rate-limits/akka/akka-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Akka Finops](https://apis.io/finops/akka/akka-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://akka.io/)
 - [Documentation](https://doc.akka.io/)
-- [Getting Started](https://doc.akka.io/libraries/akka/current/typed/guide/introduction.html)
-- [GitHub Organization](https://github.com/akka)
-- [Blog](https://akka.io/blog/)
+- [Getting started](https://doc.akka.io/libraries/akka/current/typed/guide/introduction.html)
 - [Pricing](https://akka.io/pricing/)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/json-schema/akka-config.json) — [JSON Schema](https://json-schema.org/specification)
-- [Spectral Rules](https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/rules/akka-spectral-rules.yml)
-- [Vocabulary](https://raw.githubusercontent.com/api-evangelist/akka/refs/heads/main/vocabulary/akka-vocabulary.yaml)
-- [Features](undefined)
-- [Use Cases](undefined)
-- [Integrations](undefined)
-- [Integrations](https://akka.io/partners)
-- [L L Ms Txt](https://akka.io/llms.txt)
+- [Blog](https://akka.io/blog/)
+- [GitHub](https://github.com/akka)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.4** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 43.6 |
+| Contract governance | 27.3 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 26.3 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/akka/](https://apis.io/providers/akka/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Akka: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/akka/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
